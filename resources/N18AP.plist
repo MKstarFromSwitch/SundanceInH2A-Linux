@@ -76,8 +76,6 @@
 		<true/>
 		<key>wifi</key>
 		<true/>
-		<key>hide-non-default-apps</key>
-		<false/>
 	</dict>
 	<key>iconState</key>
 	<dict>
