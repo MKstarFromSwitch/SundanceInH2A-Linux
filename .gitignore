@@ -2,4 +2,4 @@
 /exploit/*.bin
 .DS_Store
 /restore_*.log
-/artifacts/kernelcache.n18ap.bin
+/artifacts/kernelcache*
