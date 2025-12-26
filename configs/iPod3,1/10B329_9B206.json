@@ -76,11 +76,11 @@
     },
     "base_ipsw": {
         "device": "n88ap",
-        "build": "10B500",
+        "build": "10B329",
         "manifest": [
             {
                 "component": "OS",
-                "key": "7ab6f9149d78ade9b6900740a8312d6f81bf75be6688e72d9048fdf1ec0f231e1e6c3705",
+                "key": "4bcdd29f167775f32fd7c6bfec2e1f2ffec9b8d7bf72832092a8be71501e347c459e9bc5",
                 "launchdaemons_to_unlimit": [
                     "/System/Library/LaunchDaemons/com.apple.fairplayd.N88.plist",
                     "/System/Library/LaunchDaemons/com.apple.securekeyvaultd.N88.plist"
@@ -91,12 +91,12 @@
                         "patches": [
                             {
                                 "name": "getDeviceVariant() to CFSTR(\"A\")",
-                                "offset": "0x86368B8",
+                                "offset": "0x86348B8",
                                 "patch": "41f60420 c0f23a20 7844 7047"
                             },
                             {
                                 "name": "Product ID",
-                                "offset": "0x863CCE8",
+                                "offset": "0x863ACE8",
                                 "patch": "15 27"
                             }
                         ]
@@ -123,8 +123,8 @@
             },
             {
                 "component": "RestoreRamDisk",
-                "iv": "702c4aebddc712d22ea41c8091c40ab9",
-                "key": "7daa8741a223df0672513b95852a1a78f7055867872fd5b4907fc158735d9abd",
+                "iv": "cea6367cd0819c15d6065295271f28d0",
+                "key": "ec1b68ffc225d13e0887adb96448e35d02462852514da00205c982d38a523575",
                 "file_patches": [
                     {
                         "path": "/usr/sbin/asr",
