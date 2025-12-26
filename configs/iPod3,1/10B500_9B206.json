@@ -98,16 +98,6 @@
                                 "name": "Product ID",
                                 "offset": "0x863CCE8",
                                 "patch": "15 27"
-                            },
-                            {
-                                "name": "page 34358 new hash",
-                                "offset": "0xE504D36",
-                                "patch": "da17af0026abc34b6b60b6a13877e964f90922f4"
-                            },
-                            {
-                                "name": "page 34364 new hash",
-                                "offset": "0xE504DAE",
-                                "patch": "733f783ff2685f57909725042d304553301cd929"
                             }
                         ]
                     }
@@ -147,11 +137,6 @@
                                 "name": "Image signature check",
                                 "offset": "0x12EC8",
                                 "patch": "F2 E7"
-                            },
-                            {
-                                "name": "page 19 new hash",
-                                "offset": "0x2BF62",
-                                "patch": "1e7b497288ea86b9dda5e8d5a88e72dcb44d5e73"
                             }
                         ]
                     }

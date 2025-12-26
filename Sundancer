@@ -14,6 +14,8 @@ from pathlib import Path
 from typing import List
 from dataclasses import dataclass, fields, is_dataclass
 
+from yolosign import yolosign, off2page
+
 # ===================== patch config =====================
 
 def hexint(s: str):
@@ -345,16 +347,23 @@ def hoodoo_extract_firmwares(wd: Path, ipsw: IPSW, build_identity: BuildIdentity
 
     return result
 
-def patch_binary(src: Path, dest: Path, patches: List[Patch]):
+def patch_binary(src: Path, dest: Path, patches: List[Patch], codesign: bool = False):
     try:
         shutil.copyfile(src, dest)
     except shutil.SameFileError:
         pass
 
+    pages = []
     with open(dest, "r+b") as f:
         for p in patches:
             f.seek(p.offset)
             f.write(p.patch)
+
+            if codesign:
+                pages.append(off2page(p.offset))
+
+    if codesign:
+        yolosign(dest, pages)
 
 def hoodoo_replace_comp(comp: str, iv: str, key: str, src: Path, wd: Path, ipsw: IPSW, build_identity: BuildIdentity) -> str:
     path = wd / extract_comp(comp, wd, ipsw, build_identity)
@@ -444,7 +453,7 @@ def sundance_process_root_filesystem(wd: Path, ipsw: IPSW, build_identity: Build
         for p in os_cfg.file_patches:
             file_tmp_path = wd / "f"
             hfsplus_extract(os_raw_path, p.path, file_tmp_path)
-            patch_binary(file_tmp_path, file_tmp_path, p.patches)
+            patch_binary(file_tmp_path, file_tmp_path, p.patches, codesign=True)
             hfsplus_replace(os_raw_path, file_tmp_path, p.path, mode=0o755)
             file_tmp_path.unlink()
 
@@ -541,7 +550,7 @@ def sundance_process_ramdisk(wd: Path, ipsw: IPSW, build_identity: BuildIdentity
         for p in rd_cfg.file_patches:
             file_tmp_path = wd / "f"
             hfsplus_extract(rd_raw_path, p.path, file_tmp_path)
-            patch_binary(file_tmp_path, file_tmp_path, p.patches)
+            patch_binary(file_tmp_path, file_tmp_path, p.patches, codesign=True)
             hfsplus_replace(rd_raw_path, file_tmp_path, p.path, mode=0o755)
             file_tmp_path.unlink()
 
@@ -568,6 +577,7 @@ def assemble_bundle(
     hoodoo_ipsw: IPSW,
     hoodoo_identity: BuildIdentity,
     sundance_ipsw: IPSW,
+    sundance_identity: BuildIdentity,
     patched_comps: dict,
     output: Path
 ):
@@ -577,7 +587,7 @@ def assemble_bundle(
 
     raw_identity = hoodoo_identity.raw.copy()
     raw_identity["Info"]["BuildNumber"] = sundance_ipsw.manifest.build
-    raw_identity["Info"]["BuildTrain"] = "Sundance"
+    raw_identity["Info"]["BuildTrain"] = sundance_identity.build_train
 
     for k,v in raw_identity["Manifest"].items():
         comp_path = v["Info"]["Path"]
@@ -642,6 +652,7 @@ def process(args):
             hoodoo_ipsw,
             hoodoo_identity,
             sundance_ipsw,
+            sundance_identity,
             patched_comps,
             args.output
         )
