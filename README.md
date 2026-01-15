@@ -2,7 +2,7 @@
 
 Run iOS 6 on your iPod touch 3!
 
-Apple never released iOS 6 for iPod touch 3rd-generation (2009). 13 years later I decided to fix it
+Apple never released iOS 6 for iPod touch 3rd-generation (2009). 13 years later [nyan_satan](https://github.com/NyanSatan) decided to fix it
 
 This repository contains tools and instructions to *convert* iPhone 3GS iOS 6 firmware to iPod touch 3 compatible firmware and run it untethered
 
@@ -14,6 +14,11 @@ This repository contains tools and instructions to *convert* iPhone 3GS iOS 6 fi
 
 ## Changelog
 <details>
+
+### rev1-linux
+* Everything from v3
+  * All executables ported to Linux
+     * Both jailbroken and normal KernelCache are now added.
 
 ### rev3
 * Firmware patch metadata went to separate configs
@@ -56,8 +61,7 @@ This repository contains tools and instructions to *convert* iPhone 3GS iOS 6 fi
 ## Tutorial
 
 ### Requirements
-* A computer running Mac OS X 10.7+
-    * Easy to port to Linux and even Windows - basically, you need to recompile everything under `executables/` for these platforms
+* A computer running Ubuntu 23.04 or newer
 
 * Python 3.7+
 
@@ -73,44 +77,14 @@ This repository contains tools and instructions to *convert* iPhone 3GS iOS 6 fi
 
 * iPod touch 3 iOS 5.1.1 (9B206) [IPSW](https://secure-appldnld.apple.com/iOS5.1.1/041-4300.20120427.WvgGq/iPod3,1_5.1.1_9B206_Restore.ipsw)
 
-* iOS 6 kernelcache for iPod touch 3
-    * This was never published by Apple in any form, but it's doable to assemble it from internal iOS 6 builds. Instructions eta son, but for time being... I *heard* that executing this command will yield a good kernelcache you can feed to this tool:
-
-        ```shell
-        curl https://gist.githubusercontent.com/NyanSatan/1cf6921821484a2f8f788e567b654999/raw/7fa62c2cb54855d72b2a91c2aa3d57cab7318246/magic-A63970m.b64 | base64 -D | gunzip > kernelcache.n18ap.bin
-        ```
-
-    * Put it into `artifacts/kernelcache.n18ap.bin`
-
-    * Expected SHA256 hash:
-        ```shell
-        ➜  SundanceInH2A git:(master) ✗ shasum -a 256 artifacts/kernelcache.n18ap.bin 
-        1f7a37b35ca8b1b42813a9e7773726f10faf9b0c0b0bacbc6057ecd6ab9d244d  artifacts/kernelcache.n18ap.bin
-        ```
-
-    * Jailbreak option needs a different kernel, put it into `artifacts/kernelcache.jailbroken.n18ap.bin`
-        ```shell
-        # download the kernel
-        ➜  SundanceInH2A git:(feat-jb) ✗ curl https://gist.githubusercontent.com/NyanSatan/1cf6921821484a2f8f788e567b654999/raw/095022a2e8635ec3f3ee3400feb87280fd2c9f17/magic-A63970m-jb.b64 | base64 -D | gunzip > kernelcache.jailbroken.n18ap.bin
-
-        # validate SHA-256
-        ➜  SundanceInH2A git:(feat-jb) ✗ shasum -a 256 artifacts/kernelcache.jailbroken.n18ap.bin 
-        17b230be63bf4760e3098c63316b3c1333a579c2664e0509cd9baac9508ae001  artifacts/kernelcache.jailbroken.n18ap.bin
-        ```
+* I've added both normal and jailbroken KernelCache, so kernelcache step was removed.
 
 * Pwned DFU tool
-    * For modern Mac OS X (11.x Big Sur+) I recommend [iPwnder32](https://github.com/dora2ios/iPwnder32) by **dora2ios**
-    * For older ones [ipwndfu](https://github.com/axi0mX/ipwndfu) by **axi0mX** should do fine
+    * You can use [Legacy iOS Kit](https://github.com/LukeZGD/Legacy-iOS-Kit) for this step.
 
 ### Steps
 
-0. This repository contains precompiled executables that I built statically for your convinience ("statically" in terms of external dependencies). Modern Mac OS X might put them on quarantine and refuse to run them. To get rid of this restriction, remove extended attributes from all the files in `executables/`
-
-    ```shell
-    ➜  SundanceInH2A git:(master) ✗ xattr -cr executables
-    ```
-
-1. Change working directory to the downloaded repo and execute:
+0. Change working directory to the downloaded repo and execute:
 
     ```shell
     ➜  SundanceInH2A git:(master) ✗ ./Sundancer iPod3,1_5.1.1_9B206_Restore.ipsw iPhone2,1_6.x_10YNNN_Restore.ipsw iPod3,1_6.x_10YNNN_Custom
@@ -149,9 +123,9 @@ This repository contains tools and instructions to *convert* iPhone 3GS iOS 6 fi
     | 33.132 |  DONE!
     ```
 
-2. Enter pwned DFU on your iPod touch 3
+1. Enter pwned DFU on your iPod touch 3
     1. First, enter normal bootrom DFU (involves pressing and holding Home and Power buttons - there are plenty of guides online)
-    2. Then run either **iPwnder** or **ipwndfu** with `-p` flag
+    2. Then run either **iPwnder** or **ipwndfu** with `-p` flag (or use [Legacy iOS Kit](https://github.com/LukeZGD/Legacy-iOS-Kit))
 
     ```shell
     ➜  SundanceInH2A git:(master) ✗ iPwnder32 -p
@@ -178,7 +152,7 @@ Please note that iOS 6 is very ancient at this point, so most online services (b
 ## Downgrade tutorial
 The iBoot exploit used for the untether needs `boot-partition` NVRAM variable set to `2` to activate. It will break iOS 5.1.1 if set this way, and old iOS versions are dumb enough to NOT erase the variable upon restore
 
-I patched iBEC to allow arbitrary NVRAM variable change, so you can remove it without much hassle
+[nyan_satan](https://github.com/NyanSatan) patched iBEC to allow arbitrary NVRAM variable change, so you can remove it without much hassle
 
 1. Create a custom iOS 6 restore bundle if not already
 
@@ -227,14 +201,14 @@ irecovery -n
 
 * Wi-Fi, Bluetooth & multitouch firmwares are taken from iOS 5 - they seem to behave sanely, but...
 
-* Even though I tested it quite well, there still might be various issues. Let me know if you find any
+* Even though [nyan_satan](https://github.com/NyanSatan) tested it quite well, there still might be various issues. Let me know if you find any
 
-* This tool uses an iBoot bug (HFS+ extent buffer overflow) to make it run untethered. I never encountered any issues with the current implementation of the exploit, but they still might happen making your device enter a boot loop - nothing irreversible though - see **Downgrade tutorial**
+* This tool uses an iBoot bug (HFS+ extent buffer overflow) to make it run untethered. [nyan_satan](https://github.com/NyanSatan) never encountered any issues with the current implementation of the exploit, but they still might happen making your device enter a boot loop - nothing irreversible though - see **Downgrade tutorial**
 
 ## Known issues
 
 * Sometimes, Wi-Fi reconnects every minute or so
-    * Might be related to my router
+    * Might be related to [nyan_satan](https://github.com/NyanSatan)'s router (I didn't test it on mine as I don't have an iPod Touch 3 right now, but I will update later)
 
 * Built-in speaker seems to be less loud compared to iOS 5
     * Headphones work fine
@@ -247,3 +221,4 @@ irecovery -n
 
 * **planetbeing**, **dborca**, **xerub** - for XPwn tools
 * **pimskeks** and other people behind **libimobiledevice** project - for libirecovery & idevicerestore
+* **Me (MKstarFromSwitch)** and **LukeZGD** - Luke for Legacy iOS Kit, me for porting and adding KernelCache files made by **nyan_satan**
