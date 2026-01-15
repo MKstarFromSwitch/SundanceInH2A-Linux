@@ -1,6 +1,6 @@
-# SundanceInH2A
+# SundanceInH2A - Linux
 
-Run iOS 6 on your iPod touch 3!
+Run iOS 6 on your iPod touch 3 (with Linux)!
 
 Apple never released iOS 6 for iPod touch 3rd-generation (2009). 13 years later [nyan_satan](https://github.com/NyanSatan) decided to fix it
 
