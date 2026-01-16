@@ -10,12 +10,12 @@ echo
 read -p "Press any key to refresh KernelCache (make sure curl is installed)..." -n1 -s
 echo
 echo Deleting existing KernelCache files...
-rm "$PWD/artifacts/kernelcache.n18ap.bin"
+rm -f "$PWD/artifacts/kernelcache.n18ap.bin"
 echo
-echo "Deleted normal KernelCache successfully. (Ignore any "No such file or directory" errors)"
-rm "$PWD/artifacts/kernelcache.jailbroken.n18ap.bin"
+echo "Deleted normal KernelCache successfully. (Ignore any \"No such file or directory\" errors)"
+rm -f "$PWD/artifacts/kernelcache.jailbroken.n18ap.bin"
 echo
-echo "Deleted jailbroken KernelCache successfully. (Ignore any "No such file or directory" errors)"
+echo "Deleted jailbroken KernelCache successfully. (Ignore any \"No such file or directory\" errors)"
 echo
 echo "The script will now download normal KernelCache."
 echo
