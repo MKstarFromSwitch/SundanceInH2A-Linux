@@ -78,6 +78,12 @@ This repository contains tools and instructions to *convert* iPhone 3GS iOS 6 fi
 * iPod touch 3 iOS 5.1.1 (9B206) [IPSW](https://secure-appldnld.apple.com/iOS5.1.1/041-4300.20120427.WvgGq/iPod3,1_5.1.1_9B206_Restore.ipsw)
 
 * I've added both normal and jailbroken KernelCache, so kernelcache step was removed.
+   * However, you can run this command to rebuild KernelCache:
+   ```shell
+   ➜  SundanceInH2A-Linux git:(master) ✗ ./refresh-kernelcache.sh
+   ```
+   
+   
 
 * Pwned DFU tool
     * You can use [Legacy iOS Kit](https://github.com/LukeZGD/Legacy-iOS-Kit) for this step.
@@ -87,7 +93,7 @@ This repository contains tools and instructions to *convert* iPhone 3GS iOS 6 fi
 0. Change working directory to the downloaded repo and execute:
 
     ```shell
-    ➜  SundanceInH2A git:(master) ✗ ./Sundancer iPod3,1_5.1.1_9B206_Restore.ipsw iPhone2,1_6.x_10YNNN_Restore.ipsw iPod3,1_6.x_10YNNN_Custom
+    ➜  SundanceInH2A-Linux git:(master) ✗ ./Sundancer iPod3,1_5.1.1_9B206_Restore.ipsw iPhone2,1_6.x_10YNNN_Restore.ipsw iPod3,1_6.x_10YNNN_Custom
     ```
 
     Add `-j` option to apply jailbreak (on **rev2** and later)
@@ -99,7 +105,7 @@ This repository contains tools and instructions to *convert* iPhone 3GS iOS 6 fi
     Log sample:
 
     ```shell
-    ➜  SundanceInH2A git:(master) ✗ ./Sundancer iPod3,1_5.1.1_9B206_Restore.ipsw iPhone2,1_6.0_10A403_Restore.ipsw iPod3,1_6.0_10A403_Custom
+    ➜  SundanceInH2A-Linux git:(master) ✗ ./Sundancer iPod3,1_5.1.1_9B206_Restore.ipsw iPhone2,1_6.0_10A403_Restore.ipsw iPod3,1_6.0_10A403_Custom
     |  0.002 |  processing iOS 5 iBoots
     |  0.014 |  packaging kernelcache
     |  1.183 |  packaging DeviceTree
@@ -125,10 +131,11 @@ This repository contains tools and instructions to *convert* iPhone 3GS iOS 6 fi
 
 1. Enter pwned DFU on your iPod touch 3
     1. First, enter normal bootrom DFU (involves pressing and holding Home and Power buttons - there are plenty of guides online)
-    2. Then run either **iPwnder** or **ipwndfu** with `-p` flag (or use [Legacy iOS Kit](https://github.com/LukeZGD/Legacy-iOS-Kit))
+    2. Then use [Legacy iOS Kit](https://github.com/LukeZGD/Legacy-iOS-Kit) to enter pwned DFU mode.
 
     ```shell
-    ➜  SundanceInH2A git:(master) ✗ iPwnder32 -p
+    # This part will be updated when I obtain an iPod Touch 3, be patient.
+    ➜  SundanceInH2A-Linux git:(master) ✗ iPwnder32 -p
     ** iPwnder32 - RELEASE v3.2.0 [3C152] by @dora2ios
     Waiting for device in DFU mode...
     DFU device infomation iPod Touch (3rd gen) [iPod3,1]
@@ -142,7 +149,7 @@ This repository contains tools and instructions to *convert* iPhone 3GS iOS 6 fi
 3. Start restore! `idevicerestore` is provided by this repo under `executables/`
 
     ```shell
-    ➜  SundanceInH2A git:(master) ✗ executables/idevicerestore -ey iPod3,1_6.x_10YNNN_Custom
+    ➜  SundanceInH2A-Linux git:(master) ✗ executables/idevicerestore -ey iPod3,1_6.x_10YNNN_Custom
     ```
 
 Restore is going to take around 5 minutes. If everything goes well, you'll end up on iOS 6 setup screen
