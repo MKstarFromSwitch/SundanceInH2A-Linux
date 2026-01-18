@@ -2,5 +2,6 @@
 __pycache__
 /exploit/*.o
 /exploit/*.bin
+/exploit/build
 /restore_*.log
 /artifacts/kernelcache*

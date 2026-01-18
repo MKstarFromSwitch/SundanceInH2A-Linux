@@ -77,6 +77,7 @@ class Defaults:
     kernel_cache: str
     kernel_cache_jailbroken: str
     device_tree: str
+    exploit: str
 
 @dataclass
 class Config:
@@ -562,7 +563,7 @@ def destination_fw_process_ramdisk(wd: Path, ipsw: IPSW, build_identity: BuildId
     hfsplus_replace(rd_raw_path, SCRIPT_ROOT / "rc_boot" / "rc.boot", "/etc/rc.boot", mode=0o755)
 
     log("putting exploit.dmg")
-    hfsplus_add(rd_raw_path, SCRIPT_ROOT / "exploit" / "exploit.dmg", "/exploit.dmg")
+    hfsplus_add(rd_raw_path, SCRIPT_ROOT / "exploit" / gCfg.defaults.exploit, "/exploit.dmg")
 
     log("moving options plist")
     hfsplus_mv(
