@@ -39,6 +39,11 @@
                         "name": "boot-args",
                         "offset": "0x2B518",
                         "patch": "rd=md0 nand-enable-reformat=1 -progress amfi=0xff serial=3"
+                    },
+                    {
+                        "name": "allow any var in `setenv`",
+                        "offset": "0xE5D0",
+                        "patch": "00 BF"
                     }
                 ]
             },
@@ -82,7 +87,21 @@
                     "/System/Library/LaunchDaemons/com.apple.securekeyvaultd.K93.plist"
                 ],
                 "file_patches": [
-
+                    {
+                        "path": "/System/Library/Caches/com.apple.dyld/dyld_shared_cache_armv7",
+                        "patches": [
+                            {
+                                "name": "Product ID",
+                                "offset": "0x39E8DFC",
+                                "patch": "16 27"
+                            },
+                            {
+                                "name": "K48 CoreMotion",
+                                "offset": "0x4212878",
+                                "patch": "00 BF 00 BF 00 BF 00 BF 00 BF 00 BF 00 BF 0C 20"
+                            }
+                        ]
+                    }
                 ],
                 "copy_embedded_files": [
                     {

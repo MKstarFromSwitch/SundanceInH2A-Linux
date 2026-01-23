@@ -160,4 +160,3 @@ com.apple.iokit.IOAVFamily
 com.apple.iokit.IOMikeyBusFamily
 com.apple.kec.corecrypto
 com.apple.nke.tls
-com.apple.driver.AppleMultitouchSPIN1F55
