@@ -96,10 +96,10 @@ This repository contains tools and instructions to *convert* original iOS 6 firm
 
         ```shell
         cd /path/to/SundanceInH2A
-        curl https://gist.githubusercontent.com/NyanSatan/1cf6921821484a2f8f788e567b654999/raw/TODO/SundanceResources.b64 | base64 -D | tar -xvf -
+        curl https://gist.githubusercontent.com/NyanSatan/1cf6921821484a2f8f788e567b654999/raw/54c6ad7554710af454c87ec2d99f869e6e669c99/SundanceResources.b64 | base64 -D | tar -xvf -
         ```
 
-    * This will write to `artifacts` and `resources` directories
+    * This command will write files to `artifacts` and `resources` directories
 
     * Expected SHA256 hashes:
         ```shell
