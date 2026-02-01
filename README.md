@@ -134,7 +134,7 @@ This repository contains tools and instructions to *convert* original iOS 6 firm
 
     Add `-j` option to apply jailbreak
 
-    If it all goes well, after 30 seconds (or up to 3-4 minutes on older hardware) restore bundle will be ready. Bundle as in sort-of unpacked IPSW (luckily, modern `idevicerestore` can process those)
+    If it all goes well, after 30 seconds (or up to 3-4 minutes on older hardware) restore bundle will be ready. *Bundle* as in sort-of unpacked IPSW (luckily, modern `idevicerestore` can process those)
 
     Log sample:
 
