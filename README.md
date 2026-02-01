@@ -15,6 +15,9 @@ This repository contains tools and instructions to *convert* original iOS 6 firm
 ## Changelog
 <details>
 
+### rev4a
+* Fixed Wi-Fi on Chinese region iPads
+
 ### rev4
 * iPad 1 support
     * Only iOS 6.1.3 is supported as of now
