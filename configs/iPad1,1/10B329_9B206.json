@@ -63,6 +63,7 @@
                 "copy_files": [
                     "/usr/share/firmware/multitouch/Common.mtprops",
                     "/usr/share/firmware/multitouch/iPad.mtprops",
+                    "/usr/share/firmware/wifi/4329b1/duo-wapi.bin",
                     "/usr/share/firmware/wifi/4329b1/duo.bin",
                     "/usr/share/firmware/wifi/4329b1/duo.txt"
                 ],
